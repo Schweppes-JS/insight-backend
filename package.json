@@ -7,9 +7,9 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "start": "nest start",
-    "start:dev": "nest start --watch",
+    "format": "prettier --write \"src/**/*.{ts,js,graphql}\"  \"test/**/*.{ts,js,graphql}\"",
+    "start": "nest start ",
+    "start:dev": "nest start --watch && npx ts-node src/generate-types.ts",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
@@ -18,7 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "es-lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --max-warnings=0"
+    "es-lint": "eslint 'src/**/*.{js,jsx,ts,tsx}' --max-warnings=0",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --d=src/ormconfig.ts",
+    "db:drop": "npm run typeorm schema:drop",
+    "db:create": "sh -c 'npm run typeorm -- migration:generate ./src/migrations/$0'",
+    "db:migrate": "npm run typeorm -- migration:run",
+    "db:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --d=src/ormseedconfig.ts migration:run"
   },
   "dependencies": {
     "@apollo/server": "^4.5.0",
@@ -27,12 +32,19 @@
     "@nestjs/core": "^9.0.0",
     "@nestjs/graphql": "^11.0.0",
     "@nestjs/platform-express": "^9.0.0",
+    "@nestjs/typeorm": "^9.0.1",
+    "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
     "graphql": "^16.6.0",
+    "pg": "^8.11.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
-    "ts-morph": "^17.0.1"
+    "ts-morph": "^17.0.1",
+    "typeorm": "^0.3.16"
   },
   "devDependencies": {
+    "@graphql-eslint/eslint-plugin": "^3.20.1",
     "@nestjs/cli": "^9.0.0",
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.0.0",

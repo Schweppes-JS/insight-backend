@@ -1,4 +1,12 @@
 {
+  "overrides": [
+    {
+      "files": "*.graphql",
+      "options": {
+        "parser": "graphql"
+      }
+    }
+  ],
   "trailingComma": "es5",
   "printWidth": 150,
   "tabWidth": 2,

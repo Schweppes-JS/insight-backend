@@ -1,3 +1,4 @@
+
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -7,15 +8,28 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export class Coffee {
-  id: number;
-  name: string;
-  brand: string;
-  flavors: string[];
+export interface CreateUserInput {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
 }
 
-export abstract class IQuery {
-  coffees: Coffee[];
+export interface IMutation {
+    createUser(createUserInput: CreateUserInput): User | Promise<User>;
+}
+
+export interface IQuery {
+    user(id: string): User | Promise<User>;
+    users(): User[] | Promise<User[]>;
+}
+
+export interface User {
+    email: string;
+    firstName: string;
+    id: string;
+    lastName: string;
+    password: string;
 }
 
 type Nullable<T> = T | null;
