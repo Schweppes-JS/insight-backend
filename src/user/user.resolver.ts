@@ -12,4 +12,10 @@ export class UserResolver {
   async createUser(@Args("createUserInput") createUserInput: GraphQLTypes.CreateUserInput): Promise<GraphQLTypes.User> {
     return await this.userService.create(createUserInput);
   }
+
+  @Mutation("login")
+  async login(@Args("loginUserInput") loginUserInput: GraphQLTypes.LoginUserInput): Promise<GraphQLTypes.UserWithToken> {
+    const user = await this.userService.login(loginUserInput);
+    return this.userService.generateJWT(user);
+  }
 }

@@ -15,8 +15,14 @@ export interface CreateUserInput {
     password: string;
 }
 
+export interface LoginUserInput {
+    email: string;
+    password: string;
+}
+
 export interface IMutation {
     createUser(createUserInput: CreateUserInput): User | Promise<User>;
+    login(loginUserInput: LoginUserInput): UserWithToken | Promise<UserWithToken>;
 }
 
 export interface IQuery {
@@ -30,6 +36,11 @@ export interface User {
     id: string;
     lastName: string;
     password: string;
+}
+
+export interface UserWithToken {
+    token: string;
+    user: User;
 }
 
 type Nullable<T> = T | null;
