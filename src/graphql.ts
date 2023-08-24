@@ -1,4 +1,3 @@
-
 /*
  * -------------------------------------------------------
  * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
@@ -9,38 +8,38 @@
 /* eslint-disable */
 
 export interface CreateUserInput {
-    email: string;
-    firstName: string;
-    lastName: string;
-    password: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
 }
 
 export interface LoginUserInput {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 export interface IMutation {
-    createUser(createUserInput: CreateUserInput): User | Promise<User>;
-    login(loginUserInput: LoginUserInput): UserWithToken | Promise<UserWithToken>;
+  createUser(createUserInput: CreateUserInput): User | Promise<User>;
+  login(loginUserInput: LoginUserInput): UserWithToken | Promise<UserWithToken>;
 }
 
 export interface IQuery {
-    user(id: string): User | Promise<User>;
-    users(): User[] | Promise<User[]>;
+  user(id: string): User | Promise<User>;
+  users(): User[] | Promise<User[]>;
 }
 
 export interface User {
-    email: string;
-    firstName: string;
-    id: string;
-    lastName: string;
-    password: string;
+  email: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  password: string;
 }
 
 export interface UserWithToken {
-    token: string;
-    user: User;
+  token: string;
+  user: User;
 }
 
 type Nullable<T> = T | null;
