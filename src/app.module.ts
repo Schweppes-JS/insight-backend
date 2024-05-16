@@ -6,11 +6,10 @@ import { ConfigModule } from "@nestjs/config";
 import { join } from "path";
 
 import { AuthMiddleware } from "./middlewares/auth.middleware";
+import { InternalModule } from "./modules/internal.module";
 import { AppController } from "./app.controller";
 import { dataSourceOptions } from "./ormconfig";
-import { UserModule } from "./user/user.module";
 import { AuthGuard } from "./guards/auth.guard";
-import { AppService } from "./app.service";
 
 @Module({
   imports: [
@@ -22,10 +21,10 @@ import { AppService } from "./app.service";
       driver: ApolloDriver,
       sortSchema: true,
     }),
-    UserModule,
+    InternalModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthGuard],
+  providers: [AuthGuard],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

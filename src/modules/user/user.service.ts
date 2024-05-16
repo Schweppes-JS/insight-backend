@@ -7,7 +7,7 @@ import { compare } from "bcrypt";
 
 import * as GraphQLTypes from "src/graphql";
 
-import { UserEntity } from "./user.entity";
+import { UserColumnEnum, UserEntity } from "./user.entity";
 
 @Injectable()
 export class UserService {
@@ -25,7 +25,7 @@ export class UserService {
   async login(loginUserInput: GraphQLTypes.LoginUserInput): Promise<GraphQLTypes.User> {
     const user = await this.userRepository.findOne({
       where: { email: loginUserInput.email },
-      select: ["id", "firstName", "email", "password", "lastName"],
+      select: [UserColumnEnum.id, UserColumnEnum.firstName, UserColumnEnum.email, UserColumnEnum.password, UserColumnEnum.lastName],
     });
     if (user) {
       const isPasswordCorrect = await compare(loginUserInput.password, user.password);

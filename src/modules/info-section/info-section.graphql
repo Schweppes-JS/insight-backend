@@ -1,0 +1,21 @@
+type InfoSection {
+  id: ID!
+  name: String!
+  variation: String!
+  contentBlockIds: [ID!]!
+}
+
+type Query {
+  infoSections: [InfoSection!]!
+  infoSection(id: ID!): InfoSection!
+}
+
+input CreateInfoSectionInput {
+  name: String!
+  variation: String!
+  contentBlockIds: [ID!]
+}
+
+type Mutation {
+  createInfoSection(createInfoSectionInput: CreateInfoSectionInput!): InfoSection!
+}

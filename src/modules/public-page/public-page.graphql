@@ -1,0 +1,21 @@
+type PublicPage {
+  id: ID!
+  name: String!
+  route: String!
+  infoSectionIds: [ID!]!
+}
+
+type Query {
+  publicPages: [PublicPage!]!
+  publicPage(id: ID!): PublicPage!
+}
+
+input CreatePublicPageInput {
+  name: String!
+  route: String!
+  infoSectionIds: [ID!]
+}
+
+type Mutation {
+  createPublicPage(createPublicPageInput: CreatePublicPageInput!): PublicPage!
+}
