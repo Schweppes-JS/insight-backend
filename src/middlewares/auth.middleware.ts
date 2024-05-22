@@ -2,7 +2,7 @@ import { Injectable, NestMiddleware } from "@nestjs/common";
 import { Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 
-import { IExpressRequest } from "src/types/express-request";
+import { IExpressRequest } from "src/types/app-types";
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {

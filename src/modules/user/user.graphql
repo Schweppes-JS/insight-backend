@@ -11,6 +11,10 @@ type UserWithToken {
   token: String!
 }
 
+input UserInput {
+  id: ID!
+}
+
 input LoginUserInput {
   password: String!
   email: String!
@@ -25,7 +29,7 @@ input CreateUserInput {
 
 type Query {
   users: [User!]!
-  user(id: ID!): User!
+  user(userInput: UserInput): User!
   me: User!
 }
 

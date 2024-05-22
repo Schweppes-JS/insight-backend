@@ -2,7 +2,7 @@ import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { hash } from "bcrypt";
 
 import { TableNameEnum } from "src/types/table-name";
-import * as GraphQLTypes from "src/graphql";
+import * as GraphQLTypes from "src/types/graphql";
 
 export enum UserColumnEnum {
   "id" = "id",

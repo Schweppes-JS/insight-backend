@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, HttpStatus, Injectable } from "@nestjs/c
 import { GqlExecutionContext } from "@nestjs/graphql";
 import { GraphQLError } from "graphql";
 
-import { IExpressRequest } from "src/types/express-request";
+import { IExpressRequest } from "src/types/app-types";
 
 @Injectable()
 export class AuthGuard implements CanActivate {

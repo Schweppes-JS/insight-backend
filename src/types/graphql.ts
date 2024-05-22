@@ -8,6 +8,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export interface ContentBlockInput {
+    id: string;
+}
+
 export interface CreateContentBlockInput {
     en?: Nullable<string>;
     uk?: Nullable<string>;
@@ -32,9 +36,25 @@ export interface CreateUserInput {
     password: string;
 }
 
+export interface DeletePublicPageInput {
+    id: string;
+}
+
+export interface InfoSectionInput {
+    id: string;
+}
+
 export interface LoginUserInput {
     email: string;
     password: string;
+}
+
+export interface PublicPageInput {
+    id: string;
+}
+
+export interface UserInput {
+    id: string;
 }
 
 export interface ContentBlock {
@@ -55,6 +75,7 @@ export interface IMutation {
     createInfoSection(createInfoSectionInput: CreateInfoSectionInput): InfoSection | Promise<InfoSection>;
     createPublicPage(createPublicPageInput: CreatePublicPageInput): PublicPage | Promise<PublicPage>;
     createUser(createUserInput: CreateUserInput): User | Promise<User>;
+    deletePublicPage(deletePublicPageInput: DeletePublicPageInput): PublicPage | Promise<PublicPage>;
     login(loginUserInput: LoginUserInput): UserWithToken | Promise<UserWithToken>;
 }
 
@@ -66,14 +87,14 @@ export interface PublicPage {
 }
 
 export interface IQuery {
-    contentBlock(id: string): ContentBlock | Promise<ContentBlock>;
+    contentBlock(contentBlockInput?: Nullable<ContentBlockInput>): ContentBlock | Promise<ContentBlock>;
     contentBlocks(): ContentBlock[] | Promise<ContentBlock[]>;
-    infoSection(id: string): InfoSection | Promise<InfoSection>;
+    infoSection(infoSectionInput?: Nullable<InfoSectionInput>): InfoSection | Promise<InfoSection>;
     infoSections(): InfoSection[] | Promise<InfoSection[]>;
     me(): User | Promise<User>;
-    publicPage(id: string): PublicPage | Promise<PublicPage>;
+    publicPage(publicPageInput?: Nullable<PublicPageInput>): PublicPage | Promise<PublicPage>;
     publicPages(): PublicPage[] | Promise<PublicPage[]>;
-    user(id: string): User | Promise<User>;
+    user(userInput?: Nullable<UserInput>): User | Promise<User>;
     users(): User[] | Promise<User[]>;
 }
 
