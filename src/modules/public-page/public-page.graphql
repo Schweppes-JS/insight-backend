@@ -5,9 +5,12 @@ type PublicPage {
   infoSectionIds: [ID!]!
 }
 
-type Query {
-  publicPages: [PublicPage!]!
-  publicPage(id: ID!): PublicPage!
+input PublicPageInput {
+  id: ID!
+}
+
+input DeletePublicPageInput {
+  id: ID!
 }
 
 input CreatePublicPageInput {
@@ -16,6 +19,12 @@ input CreatePublicPageInput {
   infoSectionIds: [ID!]
 }
 
+type Query {
+  publicPages: [PublicPage!]!
+  publicPage(publicPageInput: PublicPageInput): PublicPage!
+}
+
 type Mutation {
+  deletePublicPage(deletePublicPageInput: DeletePublicPageInput!): PublicPage!
   createPublicPage(createPublicPageInput: CreatePublicPageInput!): PublicPage!
 }

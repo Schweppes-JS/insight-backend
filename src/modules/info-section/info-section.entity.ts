@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 import { TableNameEnum } from "src/types/table-name";
-import * as GraphQLTypes from "src/graphql";
+import * as GraphQLTypes from "src/types/graphql";
 
 export enum InfoSectionVariationEnum {
   "rich-text" = "rich-text",
