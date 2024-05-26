@@ -1,0 +1,33 @@
+scalar Date
+
+type PublicPage {
+  id: ID!
+  name: String!
+  route: String!
+  infoSectionIds: [ID!]!
+  deletedAt: Date
+}
+
+input PublicPageInput {
+  id: ID!
+}
+
+input DeletePublicPageInput {
+  id: ID!
+}
+
+input CreatePublicPageInput {
+  name: String!
+  route: String!
+  infoSectionIds: [ID!]
+}
+
+type Query {
+  publicPages: [PublicPage!]!
+  publicPage(publicPageInput: PublicPageInput): PublicPage!
+}
+
+type Mutation {
+  deletePublicPage(deletePublicPageInput: DeletePublicPageInput!): PublicPage!
+  createPublicPage(createPublicPageInput: CreatePublicPageInput!): PublicPage!
+}

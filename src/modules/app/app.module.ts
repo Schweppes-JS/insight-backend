@@ -5,27 +5,26 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
 import { join } from "path";
 
-import { AuthMiddleware } from "./middlewares/auth.middleware";
+import { AuthMiddleware } from "../../middlewares/auth.middleware";
+import { InternalModule } from "../internal.module";
 import { AppController } from "./app.controller";
-import { dataSourceOptions } from "./ormconfig";
-import { UserModule } from "./user/user.module";
-import { AuthGuard } from "./guards/auth.guard";
-import { AppService } from "./app.service";
+import { dataSourceOptions } from "../../ormconfig";
+import { AuthGuard } from "../../guards/auth.guard";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: ".env" }),
     TypeOrmModule.forRoot(dataSourceOptions),
     GraphQLModule.forRoot<ApolloDriverConfig>({
-      definitions: { path: join(process.cwd(), "src/graphql.ts") },
+      definitions: { path: join(process.cwd(), "src/types/graphql.ts") },
       typePaths: ["./**/*.graphql"],
       driver: ApolloDriver,
       sortSchema: true,
     }),
-    UserModule,
+    InternalModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthGuard],
+  providers: [AuthGuard],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

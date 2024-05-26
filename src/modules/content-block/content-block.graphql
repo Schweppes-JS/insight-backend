@@ -1,0 +1,23 @@
+type ContentBlock {
+  id: ID!
+  en: String
+  uk: String
+}
+
+input ContentBlockInput {
+  id: ID!
+}
+
+type Query {
+  contentBlocks: [ContentBlock!]!
+  contentBlock(contentBlockInput: ContentBlockInput): ContentBlock!
+}
+
+input CreateContentBlockInput {
+  en: String
+  uk: String
+}
+
+type Mutation {
+  createContentBlock(createContentBlockInput: CreateContentBlockInput!): ContentBlock!
+}
