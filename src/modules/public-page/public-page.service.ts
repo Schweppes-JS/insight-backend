@@ -19,7 +19,7 @@ export class PublicPageService {
   constructor(@InjectRepository(PublicPageEntity) private readonly publicPageRepository: Repository<PublicPageEntity>) {}
 
   async createPublicPage(createPublicPageInput: CreatePublicPageInputType): CreatePublicPageReturnType {
-    const existingPublicPage = await this.publicPageRepository.findOne({ where: { route: createPublicPageInput.route } });
+    const existingPublicPage = await this.publicPageRepository.findOne({ where: { route: createPublicPageInput.route, deletedAt: null } });
     if (existingPublicPage) throw new GraphQLError("Page with this route already exists", { extensions: { code: HttpStatus.UNPROCESSABLE_ENTITY } });
     else {
       const newPublicPage = this.publicPageRepository.create(createPublicPageInput);
@@ -28,21 +28,22 @@ export class PublicPageService {
   }
 
   async findPublicPage({ id }: PublicPageInputType): PublicPageReturnType {
-    const publicPage = await this.publicPageRepository.findOne({ where: { id } });
+    const publicPage = await this.publicPageRepository.findOne({ where: { id, deletedAt: null } });
     if (publicPage) return publicPage;
     else throw new GraphQLError("Public page with this ID does not exist", { extensions: { code: HttpStatus.NOT_FOUND } });
   }
 
   async findAllPublicPages(): PublicPagesReturnType {
-    return await this.publicPageRepository.find();
+    return await this.publicPageRepository.find({ where: { deletedAt: null } });
   }
 
   async deletePublicPage({ id }: DeletePublicPageInputType): DeletePublicPageReturnType {
-    const publicPageToDelete = await this.publicPageRepository.findOne({ where: { id } });
-    if (publicPageToDelete)
+    const publicPageToDelete = await this.publicPageRepository.findOne({ where: { id, deletedAt: null } });
+    if (!publicPageToDelete)
       throw new GraphQLError("Public page with this ID does not exist", { extensions: { code: HttpStatus.UNPROCESSABLE_ENTITY } });
     else {
-      return this.publicPageRepository.remove(publicPageToDelete);
+      publicPageToDelete.deletedAt = new Date();
+      return this.publicPageRepository.save(publicPageToDelete);
     }
   }
 }

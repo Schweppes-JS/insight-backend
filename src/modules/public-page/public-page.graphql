@@ -1,8 +1,11 @@
+scalar Date
+
 type PublicPage {
   id: ID!
   name: String!
   route: String!
   infoSectionIds: [ID!]!
+  deletedAt: Date
 }
 
 input PublicPageInput {
