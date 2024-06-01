@@ -30,4 +30,8 @@ jobs:
             npm install
             npm run build
             npm run db:migrate
+<<<<<<< HEAD
+            pm2 restart backend
+=======
             pm2 restart insight-backend
+>>>>>>> f2db0096913e604437a8ca9b665608c17ef547f2
