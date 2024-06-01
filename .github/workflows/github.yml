@@ -29,4 +29,5 @@ jobs:
             git pull
             npm install
             npm run build
+            npm run db:migrate
             pm2 restart insight-backend
