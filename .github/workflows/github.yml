@@ -3,38 +3,11 @@ name: Deploy Insight Backend
 on:
   push:
     branches:
-      - main
       - dev
+      - staging
+      - main
 
 jobs:
-  deploy-main:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build App
-        run: |
-          npm ci
-          npm run build
-
-      - name: Deploy to server (production)
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ~/nest-insight-backend
-            git checkout main
-            git pull
-            npm install
-            npm run build
-            npm run db:migrate
-            pm2 restart backend
-
   deploy-dev:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/dev'
@@ -56,9 +29,68 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/dev/nest-insight-backend
+            git stash
             git checkout dev
             git pull
             npm install
             npm run build
             npm run db:migrate
             pm2 restart dev-backend
+
+  deploy-staging:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/staging'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build App
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to server (staging)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/staging/nest-insight-backend
+            git stash
+            git checkout staging
+            git pull
+            npm install
+            npm run build
+            npm run db:migrate
+            pm2 restart staging-backend
+
+  deploy-main:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build App
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to server (production)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/nest-insight-backend
+            git stash
+            git checkout main
+            git pull
+            npm install
+            npm run build
+            npm run db:migrate
+            pm2 restart backend
