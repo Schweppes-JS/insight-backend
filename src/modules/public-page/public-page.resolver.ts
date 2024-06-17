@@ -5,12 +5,12 @@ import { AuthGuard } from "src/guards/auth.guard";
 
 import {
   CreatePublicPageReturnType,
-  CreatePublicPageInputType,
+  DeletePublicPageReturnType,
+  DeletePublicPageInputType,
+  CreatePublicPageInputDTO,
   PublicPagesReturnType,
   PublicPageReturnType,
   PublicPageInputType,
-  DeletePublicPageInputType,
-  DeletePublicPageReturnType,
 } from "./public-page.interface";
 import { PublicPageService } from "./public-page.service";
 
@@ -20,7 +20,7 @@ export class PublicPageResolver {
 
   @Mutation("createPublicPage")
   @UseGuards(AuthGuard)
-  async createPublicPage(@Args("createPublicPageInput") createPublicPageInput: CreatePublicPageInputType): CreatePublicPageReturnType {
+  async createPublicPage(@Args("createPublicPageInput") createPublicPageInput: CreatePublicPageInputDTO): CreatePublicPageReturnType {
     return this.publicPageService.createPublicPage(createPublicPageInput);
   }
 

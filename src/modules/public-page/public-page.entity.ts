@@ -3,13 +3,7 @@ import { Column, DeleteDateColumn, Entity, PrimaryGeneratedColumn } from "typeor
 import { TableNameEnum } from "src/types/table-name";
 import * as GraphQLTypes from "src/types/graphql";
 
-export enum PublicPageColumnEnum {
-  "id" = "id",
-  "name" = "name",
-  "route" = "route",
-  "deletedAt" = "deletedAt",
-  "infoSectionIds" = "infoSectionIds",
-}
+import { PublicPageColumnEnum } from "./public-page.interface";
 
 @Entity({ name: TableNameEnum["public-page"] })
 export class PublicPageEntity implements GraphQLTypes.PublicPage {

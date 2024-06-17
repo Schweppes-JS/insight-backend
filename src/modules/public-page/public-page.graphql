@@ -19,7 +19,7 @@ input DeletePublicPageInput {
 input CreatePublicPageInput {
   name: String!
   route: String!
-  infoSectionIds: [ID!]
+  infoSectionIds: [ID!]!
 }
 
 type Query {

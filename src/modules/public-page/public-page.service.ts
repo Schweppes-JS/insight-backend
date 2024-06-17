@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { GraphQLError } from "graphql";
 import { Repository } from "typeorm";
 
+import { PublicPageEntity } from "./public-page.entity";
 import {
   DeletePublicPageReturnType,
   CreatePublicPageReturnType,
@@ -10,9 +11,9 @@ import {
   DeletePublicPageInputType,
   PublicPagesReturnType,
   PublicPageReturnType,
+  PublicPageColumnEnum,
   PublicPageInputType,
 } from "./public-page.interface";
-import { PublicPageEntity } from "./public-page.entity";
 
 @Injectable()
 export class PublicPageService {
@@ -20,7 +21,10 @@ export class PublicPageService {
 
   async createPublicPage(createPublicPageInput: CreatePublicPageInputType): CreatePublicPageReturnType {
     const existingPublicPage = await this.publicPageRepository.findOne({ where: { route: createPublicPageInput.route, deletedAt: null } });
-    if (existingPublicPage) throw new GraphQLError("Page with this route already exists", { extensions: { code: HttpStatus.UNPROCESSABLE_ENTITY } });
+    if (existingPublicPage)
+      throw new GraphQLError(`Page (${existingPublicPage[PublicPageColumnEnum.name]}) with this route already exists`, {
+        extensions: { code: HttpStatus.UNPROCESSABLE_ENTITY },
+      });
     else {
       const newPublicPage = this.publicPageRepository.create(createPublicPageInput);
       return this.publicPageRepository.save(newPublicPage);

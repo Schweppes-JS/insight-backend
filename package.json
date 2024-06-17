@@ -23,7 +23,8 @@
     "db:drop": "npm run typeorm schema:drop",
     "db:create": "sh -c 'npm run typeorm -- migration:generate ./src/migrations/$0'",
     "db:migrate": "npm run typeorm -- migration:run",
-    "db:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --d=src/ormseedconfig.ts migration:run"
+    "db:seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js --d=src/ormseedconfig.ts migration:run",
+    "db:reset": "npm run db:drop && npm run db:migrate && npm run db:seed"
   },
   "dependencies": {
     "@apollo/server": "^4.5.0",
@@ -36,7 +37,7 @@
     "@nestjs/typeorm": "^9.0.1",
     "bcrypt": "^5.1.0",
     "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0",
+    "class-validator": "^0.14.1",
     "dotenv": "^16.3.1",
     "graphql": "^16.6.0",
     "jsonwebtoken": "^9.0.1",

@@ -24,7 +24,7 @@ export interface CreateInfoSectionInput {
 }
 
 export interface CreatePublicPageInput {
-    infoSectionIds?: Nullable<string[]>;
+    infoSectionIds: string[];
     name: string;
     route: string;
 }
